@@ -10,9 +10,13 @@ export default (err, req, res, next) => {
     // Wrong Mongoose Object Id Error
     if(err.name === 'CastError'){
         const newErrorMessage = `Resource not found. Invalid : ${err.path}`;
-        console.log(error)
         error = new ErrorHandler(newErrorMessage, 400);   
-        console.log(error)
+    }
+
+    // Handling mogoose Validation Error
+    if(err.name === 'ValidationError'){
+        const newErrorMessage = Object.values(err.errors).map(value => value.message);
+        error = new ErrorHandler(newErrorMessage, 400);
     }
 
 
