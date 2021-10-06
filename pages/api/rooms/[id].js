@@ -3,7 +3,10 @@ import dbConnect from "../../../config/dbConnect";
 
 import { getSingleRoom,updateRoom,deleteRoom } from '../../../controllers/roomControllers';
 
-const handler = nc();
+import onError from "../../../middlewares/errors";
+
+const handler = nc({ onError });
+
 dbConnect();
 
 handler.get(getSingleRoom);
